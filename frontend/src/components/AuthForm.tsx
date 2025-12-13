@@ -30,30 +30,47 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4 text-center capitalize">{type}</h2>
-            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-pink-400"
-                    required
-                />
-                <button type="submit" className="w-full bg-pink-500 text-white p-2 rounded hover:bg-pink-600">
-                    {type === 'login' ? 'Login' : 'Register'}
-                </button>
-            </form>
+        <div className="flex items-center justify-center min-h-[80vh]">
+            <div className="w-full max-w-md p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20">
+                <h2 className="text-3xl font-extrabold mb-6 text-center capitalize bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
+                    {type}
+                </h2>
+                {error && (
+                    <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm font-medium border border-red-100 text-center">
+                        {error}
+                    </div>
+                )}
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1 ml-1">Email</label>
+                        <input
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 transition-all outline-none bg-white/50"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1 ml-1">Password</label>
+                        <input
+                            type="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 transition-all outline-none bg-white/50"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full py-3.5 rounded-xl text-white font-bold text-lg shadow-lg shadow-pink-500/30 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 transform transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                        {type === 'login' ? 'Sign In' : 'Create Account'}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

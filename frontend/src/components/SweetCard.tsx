@@ -26,25 +26,43 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet, onUpdate }) => {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md border hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-bold text-gray-800">{sweet.name}</h3>
-            <p className="text-gray-500 text-sm">{sweet.category}</p>
-            <div className="mt-2 flex justify-between items-center">
-                <span className="text-lg font-semibold text-pink-600">${sweet.price}</span>
-                <span className={`text-sm ${sweet.quantity > 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    {sweet.quantity > 0 ? `${sweet.quantity} in stock` : 'Out of stock'}
-                </span>
+        <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full">
+            <div className="h-32 bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
+                <span className="text-4xl">🍬</span>
             </div>
-            <button
-                onClick={handlePurchase}
-                disabled={sweet.quantity === 0}
-                className={`mt-4 w-full py-2 rounded ${sweet.quantity > 0
-                        ? 'bg-pink-500 hover:bg-pink-600 text-white'
-                        : 'bg-gray-300 cursor-not-allowed text-gray-500'
-                    }`}
-            >
-                {sweet.quantity > 0 ? 'Buy Now' : 'Sold Out'}
-            </button>
+            <div className="p-6 flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 leading-tight">{sweet.name}</h3>
+                    <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full uppercase tracking-wider font-semibold">
+                        {sweet.category}
+                    </span>
+                </div>
+
+                <div className="mt-auto pt-4">
+                    <div className="flex justify-between items-end mb-4">
+                        <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
+                            ${sweet.price}
+                        </span>
+                        <span className={`text-xs font-semibold px-2 py-1 rounded-md ${sweet.quantity > 0
+                                ? 'bg-green-100 text-green-700'
+                                : 'bg-red-100 text-red-700'
+                            }`}>
+                            {sweet.quantity > 0 ? `${sweet.quantity} LEFT` : 'SOLD OUT'}
+                        </span>
+                    </div>
+
+                    <button
+                        onClick={handlePurchase}
+                        disabled={sweet.quantity === 0}
+                        className={`w-full py-3 rounded-xl font-bold text-sm transition-all transform active:scale-95 ${sweet.quantity > 0
+                                ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg shadow-gray-900/20'
+                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            }`}
+                    >
+                        {sweet.quantity > 0 ? 'Add to Cart' : 'Out of Stock'}
+                    </button>
+                </div>
+            </div>
         </div>
     );
 };
