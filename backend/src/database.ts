@@ -3,9 +3,9 @@ import { open, Database } from 'sqlite';
 
 let db: Database;
 
-export const initializeDatabase = async () => {
+export const initializeDatabase = async (filename = './sweetshop.db') => {
     db = await open({
-        filename: './sweetshop.db',
+        filename,
         driver: sqlite3.Database
     });
 
