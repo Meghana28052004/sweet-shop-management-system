@@ -21,6 +21,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
             if (type === 'login') {
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('role', res.data.role); // Store role
+                localStorage.setItem('email', res.data.email); // Store email
                 navigate('/');
             } else {
                 navigate('/login');

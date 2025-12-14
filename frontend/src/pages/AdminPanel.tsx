@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../api';
 import Navbar from '../components/Navbar';
+import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 
 const AdminPanel = () => {
     const [formData, setFormData] = useState({
@@ -27,36 +28,68 @@ const AdminPanel = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' }}>
             <Navbar />
-            <div className="container mx-auto p-4 max-w-lg">
-                <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Admin Panel</h1>
+            <Container className="d-flex justify-content-center py-5">
+                <Card className="shadow-lg border-0" style={{ maxWidth: '500px', width: '100%' }}>
+                    <Card.Body className="p-4">
+                        <h2 className="text-center fw-bold mb-4 text-primary">Admin Panel</h2>
+                        <h5 className="text-center mb-4 text-secondary">Add New Sweet</h5>
 
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                    <h2 className="text-xl font-semibold mb-4">Add New Sweet</h2>
-                    {message && <p className={`mb-4 text-center ${message.includes('success') ? 'text-green-500' : 'text-red-500'}`}>{message}</p>}
+                        {message && (
+                            <Alert variant={message.includes('success') ? 'success' : 'danger'}>
+                                {message}
+                            </Alert>
+                        )}
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
-                            <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded focus:ring-2 focus:ring-pink-400 focus:outline-none" />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Category</label>
-                            <input type="text" name="category" value={formData.category} onChange={handleChange} required className="w-full p-2 border rounded focus:ring-2 focus:ring-pink-400 focus:outline-none" />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Price</label>
-                            <input type="number" name="price" value={formData.price} onChange={handleChange} required className="w-full p-2 border rounded focus:ring-2 focus:ring-pink-400 focus:outline-none" />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Quantity</label>
-                            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} required className="w-full p-2 border rounded focus:ring-2 focus:ring-pink-400 focus:outline-none" />
-                        </div>
-                        <button type="submit" className="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700">Add Sweet</button>
-                    </form>
-                </div>
-            </div>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Category</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Price</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="price"
+                                    value={formData.price}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-4">
+                                <Form.Label>Quantity</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    name="quantity"
+                                    value={formData.quantity}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+                            <Button type="submit" variant="primary" className="w-100 py-2 fw-bold" style={{ background: 'linear-gradient(45deg, #0d6efd, #0dcaf0)', border: 'none' }}>
+                                Add Sweet
+                            </Button>
+                        </Form>
+                    </Card.Body>
+                </Card>
+            </Container>
         </div>
     );
 };

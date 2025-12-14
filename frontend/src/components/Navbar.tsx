@@ -5,9 +5,12 @@ import { Navbar as BsNavbar, Nav, Container, Button } from 'react-bootstrap';
 const Navbar = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('email');
         navigate('/login');
     };
 
@@ -23,6 +26,9 @@ const Navbar = () => {
                         {token ? (
                             <>
                                 <Nav.Link as={Link} to="/" className="me-3 fw-medium text-dark">Sweets</Nav.Link>
+                                {role === 'admin' && (
+                                    <Nav.Link as={Link} to="/admin" className="me-3 fw-medium text-primary">Admin Panel</Nav.Link>
+                                )}
                                 <Button variant="outline-danger" onClick={handleLogout} className="rounded-pill px-4">Logout</Button>
                             </>
                         ) : (
