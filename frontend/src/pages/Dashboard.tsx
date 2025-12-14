@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../api';
 import SweetCard from '../components/SweetCard';
 import Navbar from '../components/Navbar';
+import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 
 interface Sweet {
     id: number;
@@ -34,40 +35,44 @@ const Dashboard = () => {
     );
 
     return (
-        <div className="min-h-screen">
+        <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' }}>
             <Navbar />
-            <div className="container mx-auto px-4 py-8">
-                <div className="max-w-6xl mx-auto">
-                    <div className="mb-8">
-                        <h1 className="text-4xl font-black text-gray-900 mb-2">Find Your Treats</h1>
-                        <p className="text-gray-500 mb-6">Explore our exclusive collection of handmade sweets.</p>
+            <Container className="py-5">
+                <div className="text-center mb-5">
+                    <h1 className="display-4 fw-bold text-white mb-3" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>Find Your Treats</h1>
+                    <p className="lead text-white opacity-75 mb-5">Explore our exclusive collection of handmade sweets.</p>
 
-                        <div className="relative">
-                            <input
-                                type="text"
-                                placeholder="Search for sweets..."
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                className="w-full p-4 pl-12 rounded-2xl border-none shadow-xl shadow-gray-200/50 focus:ring-4 focus:ring-pink-500/10 text-gray-700 text-lg placeholder-gray-400 outline-none"
-                            />
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl">🔍</span>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                        {filteredSweets.map(sweet => (
-                            <SweetCard key={sweet.id} sweet={sweet} onUpdate={fetchSweets} />
-                        ))}
-                    </div>
-
-                    {filteredSweets.length === 0 && (
-                        <div className="text-center py-20">
-                            <p className="text-6xl mb-4">🍪</p>
-                            <p className="text-gray-500 text-lg">No sweets found matching your search.</p>
-                        </div>
-                    )}
+                    <Row className="justify-content-center">
+                        <Col md={6}>
+                            <InputGroup className="mb-3 shadow-lg rounded-pill overflow-hidden border-0">
+                                <InputGroup.Text className="bg-white border-0 ps-4">🔍</InputGroup.Text>
+                                <Form.Control
+                                    placeholder="Search sweets..."
+                                    aria-label="Search sweets"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    className="py-3 border-0 shadow-none ps-2"
+                                />
+                            </InputGroup>
+                        </Col>
+                    </Row>
                 </div>
-            </div>
+
+                <Row xs={1} md={2} lg={4} className="g-4">
+                    {filteredSweets.map(sweet => (
+                        <Col key={sweet.id}>
+                            <SweetCard sweet={sweet} onUpdate={fetchSweets} />
+                        </Col>
+                    ))}
+                </Row>
+
+                {filteredSweets.length === 0 && (
+                    <div className="text-center py-5">
+                        <p style={{ fontSize: '4rem' }}>🍪</p>
+                        <p className="text-white fs-5">No sweets found matching your search.</p>
+                    </div>
+                )}
+            </Container>
         </div>
     );
 };

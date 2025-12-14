@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../api';
+import { Card, Button, Badge } from 'react-bootstrap';
 
 interface Sweet {
     id: number;
@@ -26,44 +27,39 @@ const SweetCard: React.FC<SweetCardProps> = ({ sweet, onUpdate }) => {
     };
 
     return (
-        <div className="group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full">
-            <div className="h-32 bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
-                <span className="text-4xl">🍬</span>
+        <Card className="h-100 shadow-sm border-0 hover-shadow transition" style={{ transition: 'transform 0.2s', cursor: 'pointer' }}>
+            <div className="bg-light p-4 text-center rounded-top" style={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)' }}>
+                <span style={{ fontSize: '4rem' }}>🍬</span>
             </div>
-            <div className="p-6 flex flex-col flex-grow">
-                <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 leading-tight">{sweet.name}</h3>
-                    <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full uppercase tracking-wider font-semibold">
-                        {sweet.category}
-                    </span>
+            <Card.Body className="d-flex flex-column">
+                <div className="d-flex justify-content-between align-items-start mb-2">
+                    <Card.Title className="fw-bold mb-0">{sweet.name}</Card.Title>
+                    <Badge bg="info" pill className="text-uppercase">{sweet.category}</Badge>
                 </div>
 
-                <div className="mt-auto pt-4">
-                    <div className="flex justify-between items-end mb-4">
-                        <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">
-                            ${sweet.price}
-                        </span>
-                        <span className={`text-xs font-semibold px-2 py-1 rounded-md ${sweet.quantity > 0
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-red-100 text-red-700'
-                            }`}>
+                <div className="mt-auto">
+                    <div className="d-flex justify-content-between align-items-end mb-3">
+                        <h4 className="text-primary mb-0 fw-bold">${sweet.price}</h4>
+                        <div className={sweet.quantity > 0 ? 'text-success fw-bold small' : 'text-danger fw-bold small'}>
                             {sweet.quantity > 0 ? `${sweet.quantity} LEFT` : 'SOLD OUT'}
-                        </span>
+                        </div>
                     </div>
 
-                    <button
+                    <Button
                         onClick={handlePurchase}
                         disabled={sweet.quantity === 0}
-                        className={`w-full py-3 rounded-xl font-bold text-sm transition-all transform active:scale-95 ${sweet.quantity > 0
-                                ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-lg shadow-gray-900/20'
-                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                            }`}
+                        className="w-100 rounded-3 text-white fw-bold py-2"
+                        style={{
+                            background: sweet.quantity > 0 ? 'linear-gradient(45deg, #20c997, #0d6efd)' : '#6c757d',
+                            border: 'none',
+                            opacity: sweet.quantity > 0 ? 1 : 0.6
+                        }}
                     >
                         {sweet.quantity > 0 ? 'Add to Cart' : 'Out of Stock'}
-                    </button>
+                    </Button>
                 </div>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 };
 

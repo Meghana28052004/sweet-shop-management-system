@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
+import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
 
 interface AuthFormProps {
     type: 'login' | 'register';
@@ -30,48 +31,48 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-[80vh]">
-            <div className="w-full max-w-md p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20">
-                <h2 className="text-3xl font-extrabold mb-6 text-center capitalize bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
-                    {type}
-                </h2>
-                {error && (
-                    <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm font-medium border border-red-100 text-center">
-                        {error}
-                    </div>
-                )}
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1 ml-1">Email</label>
-                        <input
-                            type="email"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 transition-all outline-none bg-white/50"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1 ml-1">Password</label>
-                        <input
-                            type="password"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-500/10 transition-all outline-none bg-white/50"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full py-3.5 rounded-xl text-white font-bold text-lg shadow-lg shadow-pink-500/30 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 transform transition-all hover:scale-[1.02] active:scale-[0.98]"
-                    >
-                        {type === 'login' ? 'Sign In' : 'Create Account'}
-                    </button>
-                </form>
-            </div>
-        </div>
+        <Container className="d-flex justify-content-center align-items-center bg-white" style={{ minHeight: '80vh', backgroundColor: 'transparent' }}>
+            <Card className="shadow-lg border-0" style={{ width: '400px', backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
+                <Card.Body className="p-5">
+                    <h2 className="text-center mb-4 text-primary fw-bold text-capitalize">{type}</h2>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Enter email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="rounded-3"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-4">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="rounded-3"
+                            />
+                        </Form.Group>
+
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            className="w-100 py-2 rounded-3 fw-bold"
+                            style={{ background: 'linear-gradient(45deg, #0d6efd, #0dcaf0)', border: 'none' }}
+                        >
+                            {type === 'login' ? 'Login' : 'Register'}
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 };
 
